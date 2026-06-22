@@ -1,0 +1,669 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Jonathan Martín — Forjado al rojo vivo</title>
+<meta name="description" content="Jonathan Martín — desarrollador y constructor de herramientas open source. Software local-first, IA y developer tools, forjado al rojo vivo." />
+<meta name="theme-color" content="#0a0604" />
+
+<!-- Open Graph -->
+<meta property="og:type" content="website" />
+<meta property="og:title" content="Jonathan Martín — Forjado al rojo vivo" />
+<meta property="og:description" content="Desarrollador y constructor de herramientas open source. Local-first, IA y developer tools." />
+<meta property="og:locale" content="es_ES" />
+
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Sora:wght@300;400;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+
+<style>
+  :root {
+    --bg:        #0a0604;
+    --bg-2:      #120a06;
+    --surface:   rgba(255, 244, 235, 0.035);
+    --surface-2: rgba(255, 244, 235, 0.06);
+    --border:    rgba(255, 160, 90, 0.14);
+    --border-hi: rgba(255, 130, 50, 0.45);
+    --text:      #fbeee4;
+    --muted:     #b89a86;
+    --ember:     #ff5a1f;
+    --ember-2:   #ff8c2b;
+    --ember-3:   #ffd24a;
+    --crimson:   #e01f1f;
+    --glow:      0 0 40px rgba(255, 90, 31, 0.35);
+    --r:         18px;
+    --maxw:      1140px;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; }
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: 'Sora', system-ui, sans-serif;
+    line-height: 1.6;
+    overflow-x: hidden;
+    -webkit-font-smoothing: antialiased;
+  }
+  a { color: inherit; text-decoration: none; }
+  ::selection { background: var(--ember); color: #1a0a02; }
+
+  /* ---------- ember canvas background ---------- */
+  #embers {
+    position: fixed; inset: 0; z-index: 0;
+    pointer-events: none;
+  }
+  .bg-heat {
+    position: fixed; inset: 0; z-index: -1;
+    background:
+      radial-gradient(1200px 700px at 78% -8%, rgba(255, 90, 31, 0.18), transparent 60%),
+      radial-gradient(900px 600px at 10% 8%, rgba(224, 31, 31, 0.10), transparent 55%),
+      radial-gradient(1000px 900px at 50% 120%, rgba(255, 140, 43, 0.10), transparent 60%),
+      linear-gradient(180deg, var(--bg), var(--bg-2) 60%, var(--bg));
+  }
+
+  .wrap { max-width: var(--maxw); margin: 0 auto; padding: 0 24px; position: relative; z-index: 1; }
+
+  /* ---------- nav ---------- */
+  nav {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 50;
+    backdrop-filter: blur(14px);
+    background: rgba(10, 6, 4, 0.55);
+    border-bottom: 1px solid transparent;
+    transition: border-color .3s, background .3s;
+  }
+  nav.scrolled { border-bottom-color: var(--border); background: rgba(10, 6, 4, 0.8); }
+  nav .wrap { display: flex; align-items: center; justify-content: space-between; height: 68px; }
+  .brand { display: flex; align-items: center; gap: 11px; font-weight: 800; letter-spacing: .3px; }
+  .brand .spark {
+    width: 13px; height: 13px; border-radius: 50%;
+    background: radial-gradient(circle at 35% 30%, var(--ember-3), var(--ember) 55%, var(--crimson));
+    box-shadow: var(--glow); animation: pulse 2.6s ease-in-out infinite;
+  }
+  @keyframes pulse { 0%,100%{ transform: scale(1); opacity:1 } 50%{ transform: scale(1.25); opacity:.75 } }
+  .navlinks { display: flex; gap: 30px; font-size: 14px; }
+  .navlinks a { color: var(--muted); transition: color .2s; }
+  .navlinks a:hover { color: var(--text); }
+  @media (max-width: 720px){ .navlinks { display: none; } }
+
+  /* ---------- hero ---------- */
+  header { min-height: 100vh; display: flex; align-items: center; padding: 120px 0 80px; }
+  .eyebrow {
+    display: inline-flex; align-items: center; gap: 9px;
+    font-family: 'JetBrains Mono', monospace; font-size: 12.5px; letter-spacing: 2px;
+    text-transform: uppercase; color: var(--ember-2);
+    padding: 7px 14px; border: 1px solid var(--border); border-radius: 999px;
+    background: var(--surface); margin-bottom: 28px;
+  }
+  .eyebrow::before { content:''; width:6px; height:6px; border-radius:50%; background:var(--ember); box-shadow: var(--glow); }
+  h1 {
+    font-size: clamp(2.6rem, 8vw, 5.6rem); font-weight: 800; line-height: 1.02;
+    letter-spacing: -2px; margin-bottom: 26px;
+  }
+  h1 .fire {
+    background: linear-gradient(100deg, var(--ember-3), var(--ember-2) 35%, var(--ember) 60%, var(--crimson));
+    -webkit-background-clip: text; background-clip: text; color: transparent;
+    background-size: 200% auto; animation: shimmer 5s linear infinite;
+  }
+  @keyframes shimmer { to { background-position: 200% center; } }
+  .lead { font-size: clamp(1.05rem, 2.4vw, 1.4rem); color: var(--muted); max-width: 640px; margin-bottom: 18px; }
+  .lead strong { color: var(--text); font-weight: 600; }
+  .tagline { font-family:'JetBrains Mono',monospace; font-size: 13px; color: var(--ember-2); letter-spacing:1px; margin-bottom: 40px; }
+  .cta { display: flex; gap: 14px; flex-wrap: wrap; }
+  .btn {
+    display: inline-flex; align-items: center; gap: 9px; font-weight: 600; font-size: 15px;
+    padding: 14px 26px; border-radius: 999px; transition: transform .2s, box-shadow .3s, background .3s;
+  }
+  .btn-fire {
+    background: linear-gradient(100deg, var(--ember), var(--crimson));
+    color: #fff; box-shadow: 0 8px 30px rgba(255, 90, 31, 0.35);
+  }
+  .btn-fire:hover { transform: translateY(-3px); box-shadow: 0 14px 44px rgba(255, 90, 31, 0.55); }
+  .btn-ghost { border: 1px solid var(--border-hi); color: var(--text); background: var(--surface); }
+  .btn-ghost:hover { transform: translateY(-3px); background: var(--surface-2); }
+
+  .stats { display: flex; gap: 40px; margin-top: 64px; flex-wrap: wrap; }
+  .stat .n { font-size: 2.1rem; font-weight: 800; color: var(--text); }
+  .stat .l { font-size: 13px; color: var(--muted); font-family:'JetBrains Mono',monospace; }
+  .stat .n span { color: var(--ember-2); }
+
+  /* ---------- sections ---------- */
+  section { padding: 110px 0; position: relative; }
+  .sec-head { margin-bottom: 56px; }
+  .sec-tag { font-family:'JetBrains Mono',monospace; font-size: 12.5px; letter-spacing: 2px; text-transform: uppercase; color: var(--ember-2); }
+  .sec-title { font-size: clamp(1.9rem, 5vw, 3rem); font-weight: 800; letter-spacing: -1px; margin-top: 12px; }
+  .sec-sub { color: var(--muted); margin-top: 14px; max-width: 600px; }
+
+  /* ---------- projects ---------- */
+  .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(330px, 1fr)); gap: 22px; }
+  .card {
+    position: relative; padding: 30px; border-radius: var(--r);
+    background: var(--surface); border: 1px solid var(--border); overflow: hidden;
+    transition: transform .35s cubic-bezier(.2,.7,.3,1), border-color .35s, background .35s;
+  }
+  .card::before {
+    content:''; position:absolute; inset:0;
+    background: radial-gradient(420px circle at var(--mx,50%) var(--my,0%), rgba(255,120,40,0.14), transparent 45%);
+    opacity: 0; transition: opacity .35s;
+  }
+  .card:hover { transform: translateY(-8px); border-color: var(--border-hi); background: var(--surface-2); }
+  .card:hover::before { opacity: 1; }
+  .card > * { position: relative; }
+  .card-top { display:flex; align-items:center; justify-content:space-between; margin-bottom: 20px; }
+  .badge {
+    font-family:'JetBrains Mono',monospace; font-size: 11px; letter-spacing:1px; text-transform: uppercase;
+    color: var(--ember-2); padding: 5px 11px; border: 1px solid var(--border); border-radius: 999px;
+  }
+  .ic {
+    width: 50px; height: 50px; border-radius: 14px; display: grid; place-items: center;
+    background: linear-gradient(140deg, rgba(255,90,31,.18), rgba(224,31,31,.10));
+    border: 1px solid var(--border); font-size: 24px;
+  }
+  .card h3 { font-size: 1.35rem; font-weight: 700; margin-bottom: 10px; letter-spacing: -.3px; }
+  .card p { color: var(--muted); font-size: 14.5px; margin-bottom: 18px; }
+  .tags { display: flex; flex-wrap: wrap; gap: 7px; margin-bottom: 20px; }
+  .tags span { font-size: 11.5px; font-family:'JetBrains Mono',monospace; color: var(--muted); padding: 4px 10px; border-radius: 7px; background: rgba(255,255,255,.04); border: 1px solid rgba(255,255,255,.05); }
+  .card-links { display: flex; gap: 16px; font-size: 13.5px; font-weight: 600; }
+  .card-links a { color: var(--ember-2); display:inline-flex; align-items:center; gap: 5px; transition: gap .2s, color .2s; }
+  .card-links a:hover { gap: 9px; color: var(--ember-3); }
+  .card-links a.dim { color: var(--muted); }
+
+  /* ---------- stack ---------- */
+  .stack-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(190px,1fr)); gap: 18px; }
+  .stack-col { padding: 26px; border-radius: var(--r); background: var(--surface); border:1px solid var(--border); }
+  .stack-col h4 { font-size: 14px; text-transform: uppercase; letter-spacing:1.5px; color: var(--ember-2); font-family:'JetBrains Mono',monospace; margin-bottom: 16px; }
+  .stack-col ul { list-style: none; display: flex; flex-direction: column; gap: 9px; }
+  .stack-col li { color: var(--text); font-size: 14.5px; display:flex; align-items:center; gap: 9px; }
+  .stack-col li::before { content:''; width:6px; height:6px; border-radius:50%; background: var(--ember); flex:none; }
+
+  /* ---------- about ---------- */
+  .about { display: grid; grid-template-columns: 1.4fr 1fr; gap: 50px; align-items: center; }
+  @media (max-width: 820px){ .about { grid-template-columns: 1fr; } }
+  .about p { color: var(--muted); font-size: 1.05rem; margin-bottom: 18px; }
+  .about p strong { color: var(--text); }
+  .principle { padding: 28px; border-radius: var(--r); background: var(--surface); border: 1px solid var(--border); }
+  .principle h4 { font-family:'JetBrains Mono',monospace; color: var(--ember-2); font-size: 12.5px; letter-spacing:1.5px; text-transform: uppercase; margin-bottom: 18px; }
+  .principle .p { display: flex; gap: 12px; margin-bottom: 16px; align-items: flex-start; }
+  .principle .p:last-child { margin-bottom: 0; }
+  .principle .p .e { font-size: 18px; }
+  .principle .p .t { font-size: 14px; color: var(--text); }
+  .principle .p .t span { display:block; color: var(--muted); font-size: 13px; }
+
+  /* ---------- contact ---------- */
+  .contact { text-align: center; padding: 130px 0; }
+  .contact h2 { font-size: clamp(2rem, 6vw, 3.6rem); font-weight: 800; letter-spacing: -1.5px; margin-bottom: 18px; }
+  .contact h2 .fire {
+    background: linear-gradient(100deg, var(--ember-3), var(--ember) 55%, var(--crimson));
+    -webkit-background-clip:text; background-clip:text; color: transparent;
+  }
+  .contact p { color: var(--muted); max-width: 520px; margin: 0 auto 36px; }
+  .social { display: flex; gap: 16px; justify-content: center; flex-wrap: wrap; }
+
+  footer { border-top: 1px solid var(--border); padding: 34px 0; }
+  footer .wrap { display:flex; justify-content: space-between; align-items:center; flex-wrap: wrap; gap: 14px; color: var(--muted); font-size: 13.5px; font-family:'JetBrains Mono',monospace; }
+
+  /* ---------- reveal ---------- */
+  .reveal { opacity: 0; transform: translateY(28px); transition: opacity .7s cubic-bezier(.2,.7,.3,1), transform .7s cubic-bezier(.2,.7,.3,1); }
+  .reveal.in { opacity: 1; transform: none; }
+  @media (prefers-reduced-motion: reduce){ .reveal { opacity:1; transform:none; } * { animation: none !important; } html{scroll-behavior:auto;} }
+
+  .divider { height:1px; background: linear-gradient(90deg, transparent, var(--border-hi), transparent); margin: 0 auto; max-width: var(--maxw); }
+
+  /* ---------- scroll progress ---------- */
+  #progress {
+    position: fixed; top: 0; left: 0; height: 3px; width: 0; z-index: 60;
+    background: linear-gradient(90deg, var(--ember-3), var(--ember), var(--crimson));
+    box-shadow: 0 0 14px rgba(255,90,31,.8); transition: width .08s linear;
+  }
+
+  /* ---------- cursor glow ---------- */
+  #cursor-glow {
+    position: fixed; top: 0; left: 0; width: 560px; height: 560px; z-index: 0;
+    margin: -280px 0 0 -280px; border-radius: 50%; pointer-events: none; opacity: 0;
+    background: radial-gradient(circle, rgba(255,110,40,.13), rgba(255,90,31,0) 62%);
+    transition: opacity .5s; will-change: transform;
+  }
+
+  /* ---------- film grain ---------- */
+  #grain {
+    position: fixed; inset: 0; z-index: 3; pointer-events: none; opacity: .045; mix-blend-mode: overlay;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  }
+
+  /* ---------- rotating headline word ---------- */
+  .rotator { display: inline-block; position: relative; vertical-align: bottom; min-width: 1ch; }
+  .rotator .word {
+    display: inline-block;
+    background: linear-gradient(100deg, var(--ember-3), var(--ember-2) 40%, var(--ember) 70%, var(--crimson));
+    -webkit-background-clip: text; background-clip: text; color: transparent;
+    animation: wordIn .55s cubic-bezier(.2,.8,.2,1);
+  }
+  .rotator .word.out { animation: wordOut .4s cubic-bezier(.5,0,.7,0) forwards; }
+  @keyframes wordIn  { from { opacity:0; transform: translateY(.5em) rotateX(-70deg); filter: blur(6px); } to { opacity:1; transform:none; filter:none; } }
+  @keyframes wordOut { to   { opacity:0; transform: translateY(-.5em) rotateX(70deg); filter: blur(6px); } }
+
+  /* ---------- big ghost section numbers ---------- */
+  section { overflow: hidden; }
+  .ghost-n {
+    position: absolute; top: 56px; right: 4%; z-index: 0; pointer-events: none; user-select: none;
+    font-weight: 800; line-height: .8; letter-spacing: -4px;
+    font-size: clamp(6rem, 17vw, 15rem);
+    color: transparent; -webkit-text-stroke: 1.5px rgba(255,120,55,.18);
+    text-shadow: 0 0 60px rgba(255,90,31,.06);
+  }
+
+  /* ---------- keyword marquee ---------- */
+  .marquee { position: relative; z-index: 1; overflow: hidden; padding: 20px 0;
+    border-top: 1px solid var(--border); border-bottom: 1px solid var(--border);
+    background: linear-gradient(90deg, rgba(255,90,31,.04), rgba(224,31,31,.02));
+    -webkit-mask-image: linear-gradient(90deg, transparent, #000 12%, #000 88%, transparent);
+            mask-image: linear-gradient(90deg, transparent, #000 12%, #000 88%, transparent);
+  }
+  .marquee-track { display: inline-flex; gap: 46px; white-space: nowrap; will-change: transform; animation: marq 32s linear infinite; }
+  .marquee:hover .marquee-track { animation-play-state: paused; }
+  .marquee-track span { font-family: 'JetBrains Mono', monospace; font-size: 14.5px; color: var(--muted); display: inline-flex; align-items: center; gap: 12px; }
+  .marquee-track span::before { content: '◆'; color: var(--ember); font-size: 9px; }
+  .marquee-track b { color: var(--ember-2); font-weight: 500; }
+  @keyframes marq { to { transform: translateX(-50%); } }
+
+  /* ---------- button shine sweep ---------- */
+  .btn-fire { position: relative; overflow: hidden; }
+  .btn-fire::after {
+    content: ''; position: absolute; top: 0; bottom: 0; left: -160%; width: 55%;
+    background: linear-gradient(100deg, transparent, rgba(255,255,255,.4), transparent);
+    transform: skewX(-22deg); animation: shine 3.6s ease-in-out infinite;
+  }
+  @keyframes shine { 0%, 58% { left: -160%; } 100% { left: 170%; } }
+
+  /* ---------- 3D tilt cards ---------- */
+  .grid { perspective: 1200px; }
+  .card { transform-style: preserve-3d; will-change: transform; }
+  .card .ic, .card h3 { transform: translateZ(28px); }
+
+  @media (prefers-reduced-motion: reduce){
+    #cursor-glow, #grain { display: none; }
+    .marquee-track { animation: none; }
+    .btn-fire::after { animation: none; display: none; }
+    .rotator .word { animation: none; }
+  }
+</style>
+</head>
+<body>
+<div class="bg-heat"></div>
+<canvas id="embers"></canvas>
+<div id="cursor-glow"></div>
+<div id="progress"></div>
+<div id="grain"></div>
+
+<nav id="nav">
+  <div class="wrap">
+    <div class="brand"><span class="spark"></span> Jonathan&nbsp;Martín</div>
+    <div class="navlinks">
+      <a href="#proyectos">Proyectos</a>
+      <a href="#stack">Stack</a>
+      <a href="#sobre-mi">Sobre mí</a>
+      <a href="#contacto">Contacto</a>
+    </div>
+  </div>
+</nav>
+
+<header>
+  <div class="wrap">
+    <span class="eyebrow reveal">Desarrollador · Open Source · Local-first</span>
+    <h1 class="reveal">Construyo <span class="rotator" id="rotator"><span class="word">herramientas</span></span><br><span class="fire">forjadas al rojo vivo.</span></h1>
+    <p class="lead reveal">Soy <strong>Jonathan Martín</strong>. Diseño y construyo software <strong>open source</strong>: developer tools, sistemas <strong>local-first</strong> y proyectos con <strong>IA</strong> que respetan tu privacidad y corren en tu propia máquina.</p>
+    <p class="tagline reveal">// fervere — arder. Cada proyecto sale del fuego.</p>
+    <div class="cta reveal">
+      <a class="btn btn-fire" href="#proyectos">Ver proyectos →</a>
+      <a class="btn btn-ghost" href="https://github.com/JoniMartin27" target="_blank" rel="noopener">GitHub</a>
+    </div>
+    <div class="stats reveal" id="stats">
+      <div class="stat"><div class="n"><span class="count" data-to="6">0</span><span>+</span></div><div class="l">proyectos OSS</div></div>
+      <div class="stat"><div class="n"><span class="count" data-to="100">0</span><span>%</span></div><div class="l">local-first</div></div>
+      <div class="stat"><div class="n">0<span> deps</span></div><div class="l">filosofía mínima</div></div>
+    </div>
+  </div>
+</header>
+
+<div class="marquee" aria-hidden="true">
+  <div class="marquee-track" id="marquee">
+    <span><b>Lookspan</b> · observabilidad para tus apps</span><span><b>ClaudeScope</b> · busca tus sesiones de Claude Code</span><span><b>inferbench</b> · benchmark de LLMs en local</span><span><b>Trace</b> · tu memoria personal local-first</span><span><b>Launchpad</b> · tu centro de mando de proyectos</span><span><b>Pregón</b> · publica en todos tus canales</span>
+  </div>
+</div>
+
+<section id="proyectos"><div class="ghost-n">01</div>
+  <div class="wrap">
+    <div class="sec-head reveal">
+      <div class="sec-tag">// Trabajo seleccionado</div>
+      <h2 class="sec-title">Proyectos</h2>
+      <p class="sec-sub">Herramientas reales, publicadas y mantenidas. Todo open source, todo pensado para correr en tu hardware.</p>
+    </div>
+
+    <div class="grid">
+
+      <article class="card reveal">
+        <div class="card-top"><div class="ic">🧠</div><span class="badge">local-first</span></div>
+        <h3>Trace</h3>
+        <p>Tu memoria personal, local y multiplataforma. «El Rewind que Meta mató — sin grabar la pantalla». Recuerda lo que hiciste sin sacrificar tu privacidad.</p>
+        <div class="tags"><span>privacy</span><span>cross-platform</span><span>desktop</span></div>
+        <div class="card-links">
+          <a href="https://fervon.dev/trace/" target="_blank" rel="noopener">Web →</a>
+        </div>
+      </article>
+
+      <article class="card reveal">
+        <div class="card-top"><div class="ic">⚡</div><span class="badge">IA · benchmark</span></div>
+        <h3>inferbench</h3>
+        <p>Mide la velocidad real de inferencia de LLMs en <em>tu</em> hardware: tokens/s, hasta 124 modelos, modo Serve + servidor MCP y generación de imagen. Sin nube, sin trampas.</p>
+        <div class="tags"><span>LLM</span><span>MCP</span><span>benchmark</span></div>
+        <div class="card-links">
+          <a href="https://jonimartin27.github.io/inferbench" target="_blank" rel="noopener">Web →</a>
+          <a class="dim" href="https://github.com/JoniMartin27/inferbench" target="_blank" rel="noopener">Código</a>
+        </div>
+      </article>
+
+      <article class="card reveal">
+        <div class="card-top"><div class="ic">📐</div><span class="badge">npm · PyPI</span></div>
+        <h3>Lookspan</h3>
+        <p>Librería ligera de observabilidad y trazas, publicada en npm y PyPI. Spans simples, drivers intercambiables (incl. Postgres) y cero ceremonia para instrumentar tu app.</p>
+        <div class="tags"><span>observability</span><span>TypeScript</span><span>Python</span></div>
+        <div class="card-links">
+          <a href="https://www.npmjs.com/package/lookspan" target="_blank" rel="noopener">npm →</a>
+          <a class="dim" href="https://github.com/JoniMartin27" target="_blank" rel="noopener">Código</a>
+        </div>
+      </article>
+
+      <article class="card reveal">
+        <div class="card-top"><div class="ic">🔭</div><span class="badge">CLI · 0 deps</span></div>
+        <h3>ClaudeScope</h3>
+        <p>Dashboard local y búsqueda full-text sobre tus sesiones de Claude Code. <code>npx claudescope</code> y listo: cero dependencias, cero red. Tus datos no salen de tu equipo.</p>
+        <div class="tags"><span>devtools</span><span>full-text</span><span>privacy</span></div>
+        <div class="card-links">
+          <a href="https://github.com/JoniMartin27/claudescope" target="_blank" rel="noopener">Código →</a>
+        </div>
+      </article>
+
+      <article class="card reveal">
+        <div class="card-top"><div class="ic">🚀</div><span class="badge">MIT</span></div>
+        <h3>Launchpad</h3>
+        <p>Launcher local que descubre y levanta todos tus proyectos con puertos únicos sin colisiones, logs en vivo por WebSocket, estado de git y métricas. Tu centro de mando.</p>
+        <div class="tags"><span>Fastify</span><span>React</span><span>DX</span></div>
+        <div class="card-links">
+          <a href="https://github.com/JoniMartin27/launchpad" target="_blank" rel="noopener">Código →</a>
+        </div>
+      </article>
+
+      <article class="card reveal">
+        <div class="card-top"><div class="ic">📣</div><span class="badge">multi-canal</span></div>
+        <h3>Pregón</h3>
+        <p>Cross-poster centralizado con tracking: compones una vez y publicas en 8+ canales (Bluesky, Mastodon, Reddit, Hashnode…), con adaptación por plataforma y métricas de tracción reales.</p>
+        <div class="tags"><span>Next.js</span><span>Prisma</span><span>automation</span></div>
+        <div class="card-links">
+          <a href="https://github.com/JoniMartin27/pregon" target="_blank" rel="noopener">Código →</a>
+        </div>
+      </article>
+
+    </div>
+  </div>
+</section>
+
+<section id="stack"><div class="ghost-n">02</div>
+  <div class="wrap">
+    <div class="sec-head reveal">
+      <div class="sec-tag">// Caja de herramientas</div>
+      <h2 class="sec-title">Stack</h2>
+      <p class="sec-sub">Lo que uso para forjar. Pragmático, tipado y con la menor superficie de dependencias posible.</p>
+    </div>
+    <div class="stack-grid">
+      <div class="stack-col reveal"><h4>Lenguajes</h4><ul><li>TypeScript</li><li>JavaScript (Node 24)</li><li>Python</li><li>SQL</li></ul></div>
+      <div class="stack-col reveal"><h4>Frontend</h4><ul><li>React</li><li>Next.js</li><li>Astro</li><li>Vanilla + Web</li></ul></div>
+      <div class="stack-col reveal"><h4>Backend</h4><ul><li>Fastify</li><li>Prisma</li><li>Postgres / SQLite</li><li>WebSockets</li></ul></div>
+      <div class="stack-col reveal"><h4>IA & Infra</h4><ul><li>LLMs locales</li><li>MCP</li><li>Docker</li><li>GitHub Actions</li></ul></div>
+    </div>
+  </div>
+</section>
+
+<section id="sobre-mi"><div class="ghost-n">03</div>
+  <div class="wrap">
+    <div class="about">
+      <div class="reveal">
+        <div class="sec-tag" style="margin-bottom:12px;">// Sobre mí</div>
+        <h2 class="sec-title" style="margin-bottom:24px;">Constructor obsesivo de cosas útiles</h2>
+        <p>Construyo <strong>herramientas que yo mismo quiero usar</strong>: developer tools que ahorran fricción, software local-first que respeta tus datos y experimentos con IA que de verdad corren en tu máquina.</p>
+        <p>Mi filosofía es <strong>fail-closed y mínima</strong>: el camino más estricto, la menor cantidad de dependencias y siempre lo más privado por defecto. Si algo puede romperse de forma segura, así debe romperse.</p>
+        <p>Todo lo que ves nace bajo <strong>Fervon</strong> — mi estudio. Del latín <em>fervere</em>, arder. <strong>Forjado al rojo vivo.</strong></p>
+      </div>
+      <div class="principle reveal">
+        <h4>Principios</h4>
+        <div class="p"><span class="e">🔒</span><div class="t">Local-first &amp; privado<span>Tus datos no salen de tu equipo.</span></div></div>
+        <div class="p"><span class="e">🧱</span><div class="t">Mínimo por diseño<span>Cero dependencias siempre que se pueda.</span></div></div>
+        <div class="p"><span class="e">🛡️</span><div class="t">Fail-closed<span>Estricto por defecto, sin sorpresas.</span></div></div>
+        <div class="p"><span class="e">🌍</span><div class="t">Open source<span>Publicado, documentado y mantenido.</span></div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="contact" id="contacto"><div class="ghost-n">04</div>
+  <div class="wrap reveal">
+    <h2>Hablemos de <span class="fire">construir algo.</span></h2>
+    <p>¿Una colaboración, una idea o simplemente curiosear el código? Estás a un clic.</p>
+    <div class="social">
+      <a class="btn btn-fire" href="mailto:jonathanmartinpaez@gmail.com">✉️ Email</a>
+      <a class="btn btn-ghost" href="https://github.com/JoniMartin27" target="_blank" rel="noopener">GitHub</a>
+      <a class="btn btn-ghost" href="https://fervon.dev" target="_blank" rel="noopener">fervon.dev</a>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    <div>© <span id="year"></span> Jonathan Martín · Fervon</div>
+    <div>Forjado al rojo vivo 🔥</div>
+  </div>
+</footer>
+
+<script>
+  // year
+  document.getElementById('year').textContent = new Date().getFullYear();
+
+  // nav shadow
+  const nav = document.getElementById('nav');
+  addEventListener('scroll', () => nav.classList.toggle('scrolled', scrollY > 20));
+
+  // reveal on scroll
+  const io = new IntersectionObserver((es) => {
+    es.forEach((e,i) => { if (e.isIntersecting){ e.target.style.transitionDelay = (i%4*60)+'ms'; e.target.classList.add('in'); io.unobserve(e.target); } });
+  }, { threshold: 0.12 });
+  document.querySelectorAll('.reveal').forEach(el => io.observe(el));
+
+  const reduceM = matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  // card spotlight + 3D tilt
+  document.querySelectorAll('.card').forEach(c => {
+    c.addEventListener('pointermove', e => {
+      const r = c.getBoundingClientRect();
+      const px = (e.clientX - r.left) / r.width;
+      const py = (e.clientY - r.top) / r.height;
+      c.style.setProperty('--mx', (e.clientX - r.left) + 'px');
+      c.style.setProperty('--my', (e.clientY - r.top) + 'px');
+      if (!reduceM) c.style.transform =
+        `translateY(-8px) rotateX(${(0.5 - py) * 9}deg) rotateY(${(px - 0.5) * 11}deg)`;
+    });
+    c.addEventListener('pointerleave', () => { c.style.transform = ''; });
+  });
+
+  // scroll progress bar
+  const bar = document.getElementById('progress');
+  function onScroll(){
+    const max = document.documentElement.scrollHeight - innerHeight;
+    bar.style.width = (max > 0 ? (scrollY / max) * 100 : 0) + '%';
+    nav.classList.toggle('scrolled', scrollY > 20);
+  }
+  addEventListener('scroll', onScroll, { passive: true }); onScroll();
+
+  // cursor glow (rAF-smoothed)
+  const cg = document.getElementById('cursor-glow');
+  let cgx = innerWidth/2, cgy = innerHeight/2, tgx = cgx, tgy = cgy, cgOn = false;
+  if (!reduceM){
+    addEventListener('pointermove', e => { tgx = e.clientX; tgy = e.clientY; if(!cgOn){cg.style.opacity=1; cgOn=true;} }, { passive: true });
+    (function glow(){ cgx += (tgx-cgx)*0.12; cgy += (tgy-cgy)*0.12; cg.style.transform = `translate(${cgx}px, ${cgy}px)`; requestAnimationFrame(glow); })();
+  }
+
+  // count-up stats
+  function countUp(el){
+    const to = +el.dataset.to, dur = 1400, t0 = performance.now();
+    const ease = t => 1 - Math.pow(1 - t, 3);
+    (function tickN(now){ const p = Math.min(1,(now-t0)/dur); el.textContent = Math.round(to*ease(p)); if(p<1) requestAnimationFrame(tickN); })(t0);
+  }
+  const statsIO = new IntersectionObserver((es)=>{ es.forEach(e=>{ if(e.isIntersecting){ document.querySelectorAll('#stats .count').forEach(countUp); statsIO.disconnect(); } }); }, { threshold: .5 });
+  const statsEl = document.getElementById('stats'); if (statsEl) statsIO.observe(statsEl);
+
+  // rotating headline word
+  const rot = document.getElementById('rotator');
+  if (rot && !reduceM){
+    const words = ['herramientas','developer tools','sistemas local-first','proyectos con IA','software que mola'];
+    let wi = 0;
+    setInterval(() => {
+      const cur = rot.querySelector('.word');
+      cur.classList.add('out');
+      setTimeout(() => {
+        wi = (wi + 1) % words.length;
+        rot.innerHTML = `<span class="word">${words[wi]}</span>`;
+      }, 380);
+    }, 2600);
+  }
+
+  // seamless marquee (duplicate content)
+  const mq = document.getElementById('marquee');
+  if (mq) mq.innerHTML += mq.innerHTML;
+
+  // ---------- ember particles ----------
+  const cv = document.getElementById('embers');
+  const ctx = cv.getContext('2d');
+  let W, H, DPR = 1; // soft glow doesn't need retina; keeps fill cost low
+  let embers = [], sparks = [];
+  const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const TAU = Math.PI * 2;
+  let t = 0;
+
+  function resize(){
+    W = innerWidth; H = innerHeight;
+    cv.width = W * DPR; cv.height = H * DPR;
+    cv.style.width = W + 'px'; cv.style.height = H + 'px';
+    ctx.setTransform(DPR, 0, 0, DPR, 0, 0);
+  }
+  resize(); addEventListener('resize', resize);
+
+  // depth: 0 = far (small, slow, dim) .. 1 = near (big, fast, bright)
+  function spawn(reset){
+    const depth = Math.random();
+    return {
+      x: Math.random() * W,
+      y: reset ? H + Math.random() * 60 : Math.random() * H,
+      depth,
+      r: depth * 2.6 + 0.5,
+      vy: depth * 1.4 + 0.25,
+      vx: (Math.random() - 0.5) * 0.4,
+      sway: Math.random() * TAU,
+      swaySpeed: Math.random() * 0.02 + 0.005,
+      swayAmp: depth * 0.7 + 0.15,
+      life: Math.random() * 0.5 + 0.5,
+      flick: Math.random() * TAU,
+      hue: 16 + Math.random() * 30
+    };
+  }
+  // bright fast spark that streaks up with a trail
+  function spawnSpark(){
+    return {
+      x: Math.random() * W,
+      y: H + Math.random() * 30,
+      px: 0, py: 0,
+      vy: Math.random() * 3.5 + 2.2,
+      vx: (Math.random() - 0.5) * 0.8,
+      r: Math.random() * 1.2 + 0.7,
+      life: 1,
+      decay: Math.random() * 0.008 + 0.004,
+      hue: 30 + Math.random() * 22
+    };
+  }
+
+  // pre-rendered glowing ember sprite (radial gradient) — cheap to draw many times
+  function makeSprite(h){
+    const size = 64, c = document.createElement('canvas');
+    c.width = c.height = size;
+    const g = c.getContext('2d');
+    const rad = g.createRadialGradient(size/2, size/2, 0, size/2, size/2, size/2);
+    rad.addColorStop(0,    `hsla(${h+12}, 100%, 88%, 1)`);
+    rad.addColorStop(0.18, `hsla(${h+6}, 100%, 70%, 0.95)`);
+    rad.addColorStop(0.45, `hsla(${h}, 100%, 55%, 0.5)`);
+    rad.addColorStop(1,    `hsla(${h}, 100%, 50%, 0)`);
+    g.fillStyle = rad; g.fillRect(0, 0, size, size);
+    return c;
+  }
+  const SPRITES = [];
+  for (let h = 14; h <= 46; h += 4) SPRITES.push({ hue: h, img: makeSprite(h) });
+  function spriteFor(hue){ return SPRITES[Math.min(SPRITES.length-1, Math.max(0, Math.round((hue-14)/4)))].img; }
+
+  const big = innerWidth >= 720;
+  const COUNT = big ? 150 : 75;
+  const SPARKS = big ? 12 : 6;
+  if (!reduce){
+    for (let i = 0; i < COUNT; i++){ const e = spawn(false); e.img = spriteFor(e.hue); embers.push(e); }
+    for (let i = 0; i < SPARKS; i++){ const s = spawnSpark(); s.y = Math.random() * H; sparks.push(s); }
+  }
+
+  function tick(){
+    t += 0.016;
+    ctx.clearRect(0, 0, W, H);
+    ctx.globalCompositeOperation = 'lighter';
+
+    // soft heat glow rising from the base
+    const glow = ctx.createLinearGradient(0, H, 0, H * 0.5);
+    glow.addColorStop(0, 'rgba(255, 90, 31, 0.12)');
+    glow.addColorStop(1, 'rgba(255, 90, 31, 0)');
+    ctx.fillStyle = glow;
+    ctx.fillRect(0, H * 0.5, W, H * 0.5);
+
+    // embers (sprite-based glow — no per-particle shadowBlur)
+    for (const e of embers){
+      e.sway += e.swaySpeed;
+      e.x += e.vx + Math.sin(e.sway) * e.swayAmp * 0.5;
+      e.y -= e.vy;
+      e.flick += 0.15;
+      if (e.y < -12 || e.x < -20 || e.x > W + 20){ Object.assign(e, spawn(true)); e.img = spriteFor(e.hue); }
+      const fade = Math.min(1, e.y / H + 0.15);          // dim as they reach the top
+      const flicker = 0.72 + Math.sin(e.flick) * 0.28;
+      ctx.globalAlpha = e.life * fade * flicker * (0.35 + e.depth * 0.65);
+      const s = e.r * (3.5 + e.depth * 3);               // sprite is larger than the core for halo
+      ctx.drawImage(e.img, e.x - s/2, e.y - s/2, s, s);
+    }
+    ctx.globalAlpha = 1;
+
+    // sparks with streak trail
+    for (const s of sparks){
+      // respawn BEFORE drawing so we never streak a line from the old/origin point
+      if (s.life <= 0 || s.y < -10){ Object.assign(s, spawnSpark()); continue; }
+      s.px = s.x; s.py = s.y;
+      s.x += s.vx; s.y -= s.vy; s.vy *= 0.992; s.life -= s.decay;
+      ctx.strokeStyle = `hsla(${s.hue}, 100%, 68%, ${s.life * 0.9})`;
+      ctx.lineWidth = s.r;
+      ctx.lineCap = 'round';
+      ctx.beginPath();
+      ctx.moveTo(s.px, s.py);
+      ctx.lineTo(s.x, s.y);
+      ctx.stroke();
+      ctx.beginPath();
+      ctx.fillStyle = `hsla(${s.hue + 8}, 100%, 80%, ${s.life})`;
+      ctx.arc(s.x, s.y, s.r * 0.9, 0, TAU);
+      ctx.fill();
+    }
+
+    ctx.globalCompositeOperation = 'source-over';
+    requestAnimationFrame(tick);
+  }
+  if (!reduce) tick();
+</script>
+</body>
+</html>
