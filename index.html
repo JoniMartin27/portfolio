@@ -5,33 +5,38 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 <title>Jonathan Martín — Forjado al rojo vivo</title>
 <meta name="description" content="Jonathan Martín — desarrollador y constructor de herramientas open source. Software local-first, IA y developer tools, forjado al rojo vivo." />
-<meta name="theme-color" content="#0a0604" />
+<meta name="theme-color" content="#0E0B0A" />
 
 <!-- Open Graph -->
 <meta property="og:type" content="website" />
 <meta property="og:title" content="Jonathan Martín — Forjado al rojo vivo" />
 <meta property="og:description" content="Desarrollador y constructor de herramientas open source. Local-first, IA y developer tools." />
 <meta property="og:locale" content="es_ES" />
+<meta property="og:image" content="og.svg" />
+<meta property="og:image:width" content="1200" />
+<meta property="og:image:height" content="630" />
 
-<link rel="preconnect" href="https://fonts.googleapis.com" />
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-<link href="https://fonts.googleapis.com/css2?family=Sora:wght@300;400;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+<!-- Twitter -->
+<meta name="twitter:card" content="summary_large_image" />
+<meta name="twitter:image" content="og.svg" />
+
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%230E0B0A'/%3E%3Cpath d='M38 16 H26 a6 6 0 0 0 -6 6 v26 h7 V36 h9 v-7 h-9 v-4 a1 1 0 0 1 1 -1 h10 z' fill='%23FF6A00'/%3E%3C/svg%3E" />
 
 <style>
   :root {
-    --bg:        #0a0604;
-    --bg-2:      #120a06;
-    --surface:   rgba(255, 244, 235, 0.035);
-    --surface-2: rgba(255, 244, 235, 0.06);
-    --border:    rgba(255, 160, 90, 0.14);
-    --border-hi: rgba(255, 130, 50, 0.45);
-    --text:      #fbeee4;
-    --muted:     #b89a86;
-    --ember:     #ff5a1f;
-    --ember-2:   #ff8c2b;
-    --ember-3:   #ffd24a;
-    --crimson:   #e01f1f;
-    --glow:      0 0 40px rgba(255, 90, 31, 0.35);
+    --bg:        #0E0B0A;
+    --bg-2:      #16110E;
+    --surface:   rgba(239, 231, 220, 0.035);
+    --surface-2: rgba(239, 231, 220, 0.06);
+    --border:    rgba(44, 33, 27, 0.9);
+    --border-hi: rgba(255, 106, 0, 0.45);
+    --text:      #EFE7DC;
+    --muted:     #A89A8E;
+    --ember:     #FF6A00;
+    --ember-2:   #FFB02E;
+    --ember-3:   #FFD76A;
+    --crimson:   #E0480F;
+    --glow:      0 0 40px rgba(255, 106, 0, 0.35);
     --r:         18px;
     --maxw:      1140px;
   }
@@ -41,13 +46,13 @@
   body {
     background: var(--bg);
     color: var(--text);
-    font-family: 'Sora', system-ui, sans-serif;
+    font-family: system-ui, -apple-system, 'Helvetica Neue', Arial, sans-serif;
     line-height: 1.6;
     overflow-x: hidden;
     -webkit-font-smoothing: antialiased;
   }
   a { color: inherit; text-decoration: none; }
-  ::selection { background: var(--ember); color: #1a0a02; }
+  ::selection { background: var(--ember); color: #2A1402; }
 
   /* ---------- ember canvas background ---------- */
   #embers {
@@ -57,8 +62,8 @@
   .bg-heat {
     position: fixed; inset: 0; z-index: -1;
     background:
-      radial-gradient(1200px 700px at 78% -8%, rgba(255, 90, 31, 0.18), transparent 60%),
-      radial-gradient(900px 600px at 10% 8%, rgba(224, 31, 31, 0.10), transparent 55%),
+      radial-gradient(1200px 700px at 78% -8%, rgba(255, 106, 0, 0.18), transparent 60%),
+      radial-gradient(900px 600px at 10% 8%, rgba(224, 72, 15, 0.10), transparent 55%),
       radial-gradient(1000px 900px at 50% 120%, rgba(255, 140, 43, 0.10), transparent 60%),
       linear-gradient(180deg, var(--bg), var(--bg-2) 60%, var(--bg));
   }
@@ -69,11 +74,11 @@
   nav {
     position: fixed; top: 0; left: 0; right: 0; z-index: 50;
     backdrop-filter: blur(14px);
-    background: rgba(10, 6, 4, 0.55);
+    background: rgba(14, 11, 10, 0.55);
     border-bottom: 1px solid transparent;
     transition: border-color .3s, background .3s;
   }
-  nav.scrolled { border-bottom-color: var(--border); background: rgba(10, 6, 4, 0.8); }
+  nav.scrolled { border-bottom-color: var(--border); background: rgba(14, 11, 10, 0.8); }
   nav .wrap { display: flex; align-items: center; justify-content: space-between; height: 68px; }
   .brand { display: flex; align-items: center; gap: 11px; font-weight: 800; letter-spacing: .3px; }
   .brand .spark {
@@ -91,7 +96,7 @@
   header { min-height: 100vh; display: flex; align-items: center; padding: 120px 0 80px; }
   .eyebrow {
     display: inline-flex; align-items: center; gap: 9px;
-    font-family: 'JetBrains Mono', monospace; font-size: 12.5px; letter-spacing: 2px;
+    font-family: ui-monospace, 'Cascadia Code', 'Consolas', monospace; font-size: 12.5px; letter-spacing: 2px;
     text-transform: uppercase; color: var(--ember-2);
     padding: 7px 14px; border: 1px solid var(--border); border-radius: 999px;
     background: var(--surface); margin-bottom: 28px;
@@ -109,7 +114,7 @@
   @keyframes shimmer { to { background-position: 200% center; } }
   .lead { font-size: clamp(1.05rem, 2.4vw, 1.4rem); color: var(--muted); max-width: 640px; margin-bottom: 18px; }
   .lead strong { color: var(--text); font-weight: 600; }
-  .tagline { font-family:'JetBrains Mono',monospace; font-size: 13px; color: var(--ember-2); letter-spacing:1px; margin-bottom: 40px; }
+  .tagline { font-family:ui-monospace, 'Cascadia Code', 'Consolas', monospace; font-size: 13px; color: var(--ember-2); letter-spacing:1px; margin-bottom: 40px; }
   .cta { display: flex; gap: 14px; flex-wrap: wrap; }
   .btn {
     display: inline-flex; align-items: center; gap: 9px; font-weight: 600; font-size: 15px;
@@ -117,21 +122,21 @@
   }
   .btn-fire {
     background: linear-gradient(100deg, var(--ember), var(--crimson));
-    color: #fff; box-shadow: 0 8px 30px rgba(255, 90, 31, 0.35);
+    color: #fff; box-shadow: 0 8px 30px rgba(255, 106, 0, 0.35);
   }
-  .btn-fire:hover { transform: translateY(-3px); box-shadow: 0 14px 44px rgba(255, 90, 31, 0.55); }
+  .btn-fire:hover { transform: translateY(-3px); box-shadow: 0 14px 44px rgba(255, 106, 0, 0.55); }
   .btn-ghost { border: 1px solid var(--border-hi); color: var(--text); background: var(--surface); }
   .btn-ghost:hover { transform: translateY(-3px); background: var(--surface-2); }
 
   .stats { display: flex; gap: 40px; margin-top: 64px; flex-wrap: wrap; }
   .stat .n { font-size: 2.1rem; font-weight: 800; color: var(--text); }
-  .stat .l { font-size: 13px; color: var(--muted); font-family:'JetBrains Mono',monospace; }
+  .stat .l { font-size: 13px; color: var(--muted); font-family:ui-monospace, 'Cascadia Code', 'Consolas', monospace; }
   .stat .n span { color: var(--ember-2); }
 
   /* ---------- sections ---------- */
   section { padding: 110px 0; position: relative; }
   .sec-head { margin-bottom: 56px; }
-  .sec-tag { font-family:'JetBrains Mono',monospace; font-size: 12.5px; letter-spacing: 2px; text-transform: uppercase; color: var(--ember-2); }
+  .sec-tag { font-family:ui-monospace, 'Cascadia Code', 'Consolas', monospace; font-size: 12.5px; letter-spacing: 2px; text-transform: uppercase; color: var(--ember-2); }
   .sec-title { font-size: clamp(1.9rem, 5vw, 3rem); font-weight: 800; letter-spacing: -1px; margin-top: 12px; }
   .sec-sub { color: var(--muted); margin-top: 14px; max-width: 600px; }
 
@@ -152,18 +157,20 @@
   .card > * { position: relative; }
   .card-top { display:flex; align-items:center; justify-content:space-between; margin-bottom: 20px; }
   .badge {
-    font-family:'JetBrains Mono',monospace; font-size: 11px; letter-spacing:1px; text-transform: uppercase;
+    font-family:ui-monospace, 'Cascadia Code', 'Consolas', monospace; font-size: 11px; letter-spacing:1px; text-transform: uppercase;
     color: var(--ember-2); padding: 5px 11px; border: 1px solid var(--border); border-radius: 999px;
   }
   .ic {
     width: 50px; height: 50px; border-radius: 14px; display: grid; place-items: center;
-    background: linear-gradient(140deg, rgba(255,90,31,.18), rgba(224,31,31,.10));
-    border: 1px solid var(--border); font-size: 24px;
+    background: linear-gradient(140deg, rgba(255, 106, 0,.18), rgba(224, 72, 15,.10));
+    border: 1px solid var(--border);
   }
+  .ic svg { width: 24px; height: 24px; stroke: var(--ember); stroke-width: 1.75; fill: none; stroke-linecap: round; stroke-linejoin: round; }
+  .principle .p .e svg { width: 18px; height: 18px; stroke: var(--ember-2); stroke-width: 1.75; fill: none; stroke-linecap: round; stroke-linejoin: round; display: block; }
   .card h3 { font-size: 1.35rem; font-weight: 700; margin-bottom: 10px; letter-spacing: -.3px; }
   .card p { color: var(--muted); font-size: 14.5px; margin-bottom: 18px; }
   .tags { display: flex; flex-wrap: wrap; gap: 7px; margin-bottom: 20px; }
-  .tags span { font-size: 11.5px; font-family:'JetBrains Mono',monospace; color: var(--muted); padding: 4px 10px; border-radius: 7px; background: rgba(255,255,255,.04); border: 1px solid rgba(255,255,255,.05); }
+  .tags span { font-size: 11.5px; font-family:ui-monospace, 'Cascadia Code', 'Consolas', monospace; color: var(--muted); padding: 4px 10px; border-radius: 7px; background: rgba(255,255,255,.04); border: 1px solid rgba(255,255,255,.05); }
   .card-links { display: flex; gap: 16px; font-size: 13.5px; font-weight: 600; }
   .card-links a { color: var(--ember-2); display:inline-flex; align-items:center; gap: 5px; transition: gap .2s, color .2s; }
   .card-links a:hover { gap: 9px; color: var(--ember-3); }
@@ -172,7 +179,7 @@
   /* ---------- stack ---------- */
   .stack-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(190px,1fr)); gap: 18px; }
   .stack-col { padding: 26px; border-radius: var(--r); background: var(--surface); border:1px solid var(--border); }
-  .stack-col h4 { font-size: 14px; text-transform: uppercase; letter-spacing:1.5px; color: var(--ember-2); font-family:'JetBrains Mono',monospace; margin-bottom: 16px; }
+  .stack-col h4 { font-size: 14px; text-transform: uppercase; letter-spacing:1.5px; color: var(--ember-2); font-family:ui-monospace, 'Cascadia Code', 'Consolas', monospace; margin-bottom: 16px; }
   .stack-col ul { list-style: none; display: flex; flex-direction: column; gap: 9px; }
   .stack-col li { color: var(--text); font-size: 14.5px; display:flex; align-items:center; gap: 9px; }
   .stack-col li::before { content:''; width:6px; height:6px; border-radius:50%; background: var(--ember); flex:none; }
@@ -183,7 +190,7 @@
   .about p { color: var(--muted); font-size: 1.05rem; margin-bottom: 18px; }
   .about p strong { color: var(--text); }
   .principle { padding: 28px; border-radius: var(--r); background: var(--surface); border: 1px solid var(--border); }
-  .principle h4 { font-family:'JetBrains Mono',monospace; color: var(--ember-2); font-size: 12.5px; letter-spacing:1.5px; text-transform: uppercase; margin-bottom: 18px; }
+  .principle h4 { font-family:ui-monospace, 'Cascadia Code', 'Consolas', monospace; color: var(--ember-2); font-size: 12.5px; letter-spacing:1.5px; text-transform: uppercase; margin-bottom: 18px; }
   .principle .p { display: flex; gap: 12px; margin-bottom: 16px; align-items: flex-start; }
   .principle .p:last-child { margin-bottom: 0; }
   .principle .p .e { font-size: 18px; }
@@ -201,7 +208,7 @@
   .social { display: flex; gap: 16px; justify-content: center; flex-wrap: wrap; }
 
   footer { border-top: 1px solid var(--border); padding: 34px 0; }
-  footer .wrap { display:flex; justify-content: space-between; align-items:center; flex-wrap: wrap; gap: 14px; color: var(--muted); font-size: 13.5px; font-family:'JetBrains Mono',monospace; }
+  footer .wrap { display:flex; justify-content: space-between; align-items:center; flex-wrap: wrap; gap: 14px; color: var(--muted); font-size: 13.5px; font-family:ui-monospace, 'Cascadia Code', 'Consolas', monospace; }
 
   /* ---------- reveal ---------- */
   .reveal { opacity: 0; transform: translateY(28px); transition: opacity .7s cubic-bezier(.2,.7,.3,1), transform .7s cubic-bezier(.2,.7,.3,1); }
@@ -214,14 +221,14 @@
   #progress {
     position: fixed; top: 0; left: 0; height: 3px; width: 0; z-index: 60;
     background: linear-gradient(90deg, var(--ember-3), var(--ember), var(--crimson));
-    box-shadow: 0 0 14px rgba(255,90,31,.8); transition: width .08s linear;
+    box-shadow: 0 0 14px rgba(255, 106, 0,.8); transition: width .08s linear;
   }
 
   /* ---------- cursor glow ---------- */
   #cursor-glow {
     position: fixed; top: 0; left: 0; width: 560px; height: 560px; z-index: 0;
     margin: -280px 0 0 -280px; border-radius: 50%; pointer-events: none; opacity: 0;
-    background: radial-gradient(circle, rgba(255,110,40,.13), rgba(255,90,31,0) 62%);
+    background: radial-gradient(circle, rgba(255,110,40,.13), rgba(255, 106, 0,0) 62%);
     transition: opacity .5s; will-change: transform;
   }
 
@@ -250,19 +257,19 @@
     font-weight: 800; line-height: .8; letter-spacing: -4px;
     font-size: clamp(6rem, 17vw, 15rem);
     color: transparent; -webkit-text-stroke: 1.5px rgba(255,120,55,.18);
-    text-shadow: 0 0 60px rgba(255,90,31,.06);
+    text-shadow: 0 0 60px rgba(255, 106, 0,.06);
   }
 
   /* ---------- keyword marquee ---------- */
   .marquee { position: relative; z-index: 1; overflow: hidden; padding: 20px 0;
     border-top: 1px solid var(--border); border-bottom: 1px solid var(--border);
-    background: linear-gradient(90deg, rgba(255,90,31,.04), rgba(224,31,31,.02));
+    background: linear-gradient(90deg, rgba(255, 106, 0,.04), rgba(224, 72, 15,.02));
     -webkit-mask-image: linear-gradient(90deg, transparent, #000 12%, #000 88%, transparent);
             mask-image: linear-gradient(90deg, transparent, #000 12%, #000 88%, transparent);
   }
   .marquee-track { display: inline-flex; gap: 46px; white-space: nowrap; will-change: transform; animation: marq 32s linear infinite; }
   .marquee:hover .marquee-track { animation-play-state: paused; }
-  .marquee-track span { font-family: 'JetBrains Mono', monospace; font-size: 14.5px; color: var(--muted); display: inline-flex; align-items: center; gap: 12px; }
+  .marquee-track span { font-family: ui-monospace, 'Cascadia Code', 'Consolas', monospace; font-size: 14.5px; color: var(--muted); display: inline-flex; align-items: center; gap: 12px; }
   .marquee-track span::before { content: '◆'; color: var(--ember); font-size: 9px; }
   .marquee-track b { color: var(--ember-2); font-weight: 500; }
   @keyframes marq { to { transform: translateX(-50%); } }
@@ -343,7 +350,7 @@
     <div class="grid">
 
       <article class="card reveal">
-        <div class="card-top"><div class="ic">🧠</div><span class="badge">local-first</span></div>
+        <div class="card-top"><div class="ic" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M12 5a3 3 0 1 0-5.997.125 4 4 0 0 0-2.526 5.77 4 4 0 0 0 .556 6.588A4 4 0 1 0 12 18Z"/><path d="M12 5a3 3 0 1 1 5.997.125 4 4 0 0 1 2.526 5.77 4 4 0 0 1-.556 6.588A4 4 0 1 1 12 18Z"/><path d="M15 13a4.5 4.5 0 0 1-3-4 4.5 4.5 0 0 1-3 4"/><path d="M17.599 6.5a3 3 0 0 0 .399-1.375"/><path d="M6.003 5.125A3 3 0 0 0 6.401 6.5"/><path d="M3.477 10.896a4 4 0 0 1 .585-.396"/><path d="M19.938 10.5a4 4 0 0 1 .585.396"/><path d="M6 18a4 4 0 0 1-1.967-.516"/><path d="M19.967 17.484A4 4 0 0 1 18 18"/></svg></div><span class="badge">local-first</span></div>
         <h3>Trace</h3>
         <p>Tu memoria personal, local y multiplataforma. «El Rewind que Meta mató — sin grabar la pantalla». Recuerda lo que hiciste sin sacrificar tu privacidad.</p>
         <div class="tags"><span>privacy</span><span>cross-platform</span><span>desktop</span></div>
@@ -353,7 +360,7 @@
       </article>
 
       <article class="card reveal">
-        <div class="card-top"><div class="ic">⚡</div><span class="badge">IA · benchmark</span></div>
+        <div class="card-top"><div class="ic" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M4 14a1 1 0 0 1-.78-1.63l9.9-10.2a.5.5 0 0 1 .86.46l-1.92 6.02A1 1 0 0 0 13 10h7a1 1 0 0 1 .78 1.63l-9.9 10.2a.5.5 0 0 1-.86-.46l1.92-6.02A1 1 0 0 0 11 14z"/></svg></div><span class="badge">IA · benchmark</span></div>
         <h3>inferbench</h3>
         <p>Mide la velocidad real de inferencia de LLMs en <em>tu</em> hardware: tokens/s, hasta 124 modelos, modo Serve + servidor MCP y generación de imagen. Sin nube, sin trampas.</p>
         <div class="tags"><span>LLM</span><span>MCP</span><span>benchmark</span></div>
@@ -364,7 +371,7 @@
       </article>
 
       <article class="card reveal">
-        <div class="card-top"><div class="ic">📐</div><span class="badge">npm · PyPI</span></div>
+        <div class="card-top"><div class="ic" aria-hidden="true"><svg viewBox="0 0 24 24"><rect width="18" height="18" x="3" y="3" rx="2"/><path d="M3 9h18"/><path d="M3 15h18"/><path d="M9 3v18"/><path d="M15 3v18"/></svg></div><span class="badge">npm · PyPI</span></div>
         <h3>Lookspan</h3>
         <p>Librería ligera de observabilidad y trazas, publicada en npm y PyPI. Spans simples, drivers intercambiables (incl. Postgres) y cero ceremonia para instrumentar tu app.</p>
         <div class="tags"><span>observability</span><span>TypeScript</span><span>Python</span></div>
@@ -375,7 +382,7 @@
       </article>
 
       <article class="card reveal">
-        <div class="card-top"><div class="ic">🔭</div><span class="badge">CLI · 0 deps</span></div>
+        <div class="card-top"><div class="ic" aria-hidden="true"><svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg></div><span class="badge">CLI · 0 deps</span></div>
         <h3>ClaudeScope</h3>
         <p>Dashboard local y búsqueda full-text sobre tus sesiones de Claude Code. <code>npx claudescope</code> y listo: cero dependencias, cero red. Tus datos no salen de tu equipo.</p>
         <div class="tags"><span>devtools</span><span>full-text</span><span>privacy</span></div>
@@ -385,7 +392,7 @@
       </article>
 
       <article class="card reveal">
-        <div class="card-top"><div class="ic">🚀</div><span class="badge">MIT</span></div>
+        <div class="card-top"><div class="ic" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M4.5 16.5c-1.5 1.26-2 5-2 5s3.74-.5 5-2c.71-.84.7-2.13-.09-2.91a2.18 2.18 0 0 0-2.91-.09z"/><path d="m12 15-3-3a22 22 0 0 1 2-3.95A12.88 12.88 0 0 1 22 2c0 2.72-.78 7.5-6 11a22.35 22.35 0 0 1-4 2z"/><path d="M9 12H4s.55-3.03 2-4c1.62-1.08 5 0 5 0"/><path d="M12 15v5s3.03-.55 4-2c1.08-1.62 0-5 0-5"/></svg></div><span class="badge">MIT</span></div>
         <h3>Launchpad</h3>
         <p>Launcher local que descubre y levanta todos tus proyectos con puertos únicos sin colisiones, logs en vivo por WebSocket, estado de git y métricas. Tu centro de mando.</p>
         <div class="tags"><span>Fastify</span><span>React</span><span>DX</span></div>
@@ -395,7 +402,7 @@
       </article>
 
       <article class="card reveal">
-        <div class="card-top"><div class="ic">📣</div><span class="badge">multi-canal</span></div>
+        <div class="card-top"><div class="ic" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="m3 11 18-5v12L3 14v-3z"/><path d="M11.6 16.8a3 3 0 1 1-5.8-1.6"/></svg></div><span class="badge">multi-canal</span></div>
         <h3>Pregón</h3>
         <p>Cross-poster centralizado con tracking: compones una vez y publicas en 8+ canales (Bluesky, Mastodon, Reddit, Hashnode…), con adaptación por plataforma y métricas de tracción reales.</p>
         <div class="tags"><span>Next.js</span><span>Prisma</span><span>automation</span></div>
@@ -436,10 +443,10 @@
       </div>
       <div class="principle reveal">
         <h4>Principios</h4>
-        <div class="p"><span class="e">🔒</span><div class="t">Local-first &amp; privado<span>Tus datos no salen de tu equipo.</span></div></div>
-        <div class="p"><span class="e">🧱</span><div class="t">Mínimo por diseño<span>Cero dependencias siempre que se pueda.</span></div></div>
-        <div class="p"><span class="e">🛡️</span><div class="t">Fail-closed<span>Estricto por defecto, sin sorpresas.</span></div></div>
-        <div class="p"><span class="e">🌍</span><div class="t">Open source<span>Publicado, documentado y mantenido.</span></div></div>
+        <div class="p"><span class="e" aria-hidden="true"><svg viewBox="0 0 24 24"><rect width="18" height="11" x="3" y="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg></span><div class="t">Local-first &amp; privado<span>Tus datos no salen de tu equipo.</span></div></div>
+        <div class="p"><span class="e" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M2.97 12.92A2 2 0 0 0 2 14.63v3.24a2 2 0 0 0 .97 1.71l3 1.8a2 2 0 0 0 2.06 0L12 19v-5.5l-5-3-4.03 2.42Z"/><path d="m7 16.5-4.74-2.85"/><path d="m7 16.5 5-3"/><path d="M7 16.5v5.17"/><path d="M12 13.5V19l3.97 2.38a2 2 0 0 0 2.06 0l3-1.8a2 2 0 0 0 .97-1.71v-3.24a2 2 0 0 0-.97-1.71L17 10.5l-5 3Z"/><path d="m17 16.5-5-3"/><path d="m17 16.5 4.74-2.85"/><path d="M17 16.5v5.17"/><path d="M7.97 4.42A2 2 0 0 0 7 6.13v4.37l5 3 5-3V6.13a2 2 0 0 0-.97-1.71l-3-1.8a2 2 0 0 0-2.06 0l-3 1.8Z"/><path d="M12 8 7.26 5.15"/><path d="m12 8 4.74-2.85"/><path d="M12 13.5V8"/></svg></span><div class="t">Mínimo por diseño<span>Cero dependencias siempre que se pueda.</span></div></div>
+        <div class="p"><span class="e" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M20 13c0 5-3.5 7.5-7.66 8.95a1 1 0 0 1-.67-.01C7.5 20.5 4 18 4 13V6a1 1 0 0 1 1-1c2 0 4.5-1.2 6.24-2.72a1.17 1.17 0 0 1 1.52 0C14.51 3.81 17 5 19 5a1 1 0 0 1 1 1z"/><path d="m9 12 2 2 4-4"/></svg></span><div class="t">Fail-closed<span>Estricto por defecto, sin sorpresas.</span></div></div>
+        <div class="p"><span class="e" aria-hidden="true"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M12 2a14.5 14.5 0 0 0 0 20 14.5 14.5 0 0 0 0-20"/><path d="M2 12h20"/></svg></span><div class="t">Open source<span>Publicado, documentado y mantenido.</span></div></div>
       </div>
     </div>
   </div>
@@ -450,7 +457,7 @@
     <h2>Hablemos de <span class="fire">construir algo.</span></h2>
     <p>¿Una colaboración, una idea o simplemente curiosear el código? Estás a un clic.</p>
     <div class="social">
-      <a class="btn btn-fire" href="mailto:jonathanmartinpaez@gmail.com">✉️ Email</a>
+      <a class="btn btn-fire" href="mailto:jonathanmartinpaez@gmail.com"><svg viewBox="0 0 24 24" width="17" height="17" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect width="20" height="16" x="2" y="4" rx="2"/><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/></svg> Email</a>
       <a class="btn btn-ghost" href="https://github.com/JoniMartin27" target="_blank" rel="noopener">GitHub</a>
       <a class="btn btn-ghost" href="https://fervon.dev" target="_blank" rel="noopener">fervon.dev</a>
     </div>
@@ -459,8 +466,8 @@
 
 <footer>
   <div class="wrap">
-    <div>© <span id="year"></span> Jonathan Martín · Fervon</div>
-    <div>Forjado al rojo vivo 🔥</div>
+    <div>© <span id="year"></span> Jonathan Martín · Forjado al rojo vivo</div>
+    <div>Parte de <a href="https://fervon.dev" target="_blank" rel="noopener" style="color:var(--ember-2);">Fervon</a></div>
   </div>
 </footer>
 
@@ -621,8 +628,8 @@
 
     // soft heat glow rising from the base
     const glow = ctx.createLinearGradient(0, H, 0, H * 0.5);
-    glow.addColorStop(0, 'rgba(255, 90, 31, 0.12)');
-    glow.addColorStop(1, 'rgba(255, 90, 31, 0)');
+    glow.addColorStop(0, 'rgba(255, 106, 0, 0.12)');
+    glow.addColorStop(1, 'rgba(255, 106, 0, 0)');
     ctx.fillStyle = glow;
     ctx.fillRect(0, H * 0.5, W, H * 0.5);
 
